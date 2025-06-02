@@ -1,4 +1,4 @@
-version: '3.8'
+version: '3.9'
 
 services:
   frontend:
@@ -7,15 +7,22 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
     ports:
-      - "8081:8080"
+      - "5173:5173"
     depends_on:
       - backend
     environment:
-      - VUE_APP_API_URL=http://localhost:3000
+      - VITE_API_URL=http://localhost:3000
     volumes:
-      - ./frontend:/app
       - /app/node_modules
-
+    develop:
+      watch:
+        - action: sync
+          path: ./frontend
+          target: /app
+          ignore:
+            - node_modules/
+        - action: rebuild
+          path: ./frontend/package.json
   backend:
     image: ${DOCKER_USERNAME}/todo-backend:latest
     build:
@@ -32,8 +39,16 @@ services:
       - DB_NAME=postgres
       - DB_PORT=5432
     volumes:
-      - ./backend:/app
       - /app/node_modules
+    develop:
+      watch:
+        - action: sync
+          path: ./backend
+          target: /app
+          ignore:
+            - node_modules/
+        - action: rebuild
+          path: ./backend/package.json
 
   db:
     image: postgres:14-alpine
@@ -45,6 +60,14 @@ services:
       - postgres_data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=pgadmin@pgadmin.org
+      - PGADMIN_DEFAULT_PASSWORD=pgadmin
+    ports:
+      - "5050:80"
 
 volumes:
   postgres_data: 

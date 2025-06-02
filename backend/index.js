@@ -1,6 +1,6 @@
-const express = require('express');
-const cors = require('cors');
-const { Sequelize, DataTypes } = require('sequelize');
+import express, { json } from 'express';
+import cors from 'cors';
+import { Sequelize, DataTypes } from 'sequelize';
 
 const app = express();
 const port = 3000;
@@ -27,21 +27,35 @@ const Todo = sequelize.define('Todo', {
     defaultValue: false
   }
 }, {
-  tableName: 'Todo'
+  tableName: 'todo'
 });
 
 app.use(cors());
-app.use(express.json());
+app.use(json());
 
 // Initialize database
+async function waitForDb(retries = 5, delay = 2000) {
+  while (retries > 0) {
+    try {
+      await sequelize.authenticate();
+      console.log('✅ Database connection established.');
+      return;
+    } catch (err) {
+      retries--;
+      console.warn(`⏳ Retrying DB connection (${retries} tries left)...`);
+      await new Promise(res => setTimeout(res, delay));
+    }
+  }
+  throw new Error('❌ Unable to connect to the database after several attempts.');
+}
+
 async function initDb() {
   try {
-    await sequelize.authenticate();
-    console.log('Database connection established.');
-    await sequelize.sync({ force: true });
-    console.log('Database synchronized.');
+    await waitForDb();
+    await sequelize.sync({ alter: true });
+    console.log('✅ Database synchronized.');
   } catch (error) {
-    console.error('Unable to connect to the database:', error);
+    console.error('❌ DB Init Error:', error);
   }
 }
 

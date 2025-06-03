@@ -97,7 +97,7 @@ app.delete('/todo/:id', async (req, res) => {
     const todo = await Todo.findByPk(req.params.id);
     if (todo) {
       await todo.destroy();
-      res.status(204).send();
+      res.status(204).json({ message: 'Todo deleted' });
     } else {
       res.status(404).json({ error: 'Todo not found' });
     }

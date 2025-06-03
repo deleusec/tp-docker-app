@@ -1,5 +1,5 @@
 {
-  "name": "eval-docker-app",
+  "name": "todo-frontend",
   "version": "0.0.0",
   "private": true,
   "type": "module",

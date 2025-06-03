@@ -28,6 +28,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: ./backend
+          file: Dockerfile
           push: true
           tags: ${{ env.DOCKER_USERNAME }}/todo-backend:latest
 
@@ -35,5 +36,6 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: ./frontend
+          file: Dockerfile
           push: true
           tags: ${{ env.DOCKER_USERNAME }}/todo-frontend:latest

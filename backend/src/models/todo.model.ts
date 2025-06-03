@@ -7,6 +7,7 @@ class Todo extends Model<ITodo> implements ITodo {
   public title!: string;
   public description!: string;
   public completed!: boolean;
+  public images!: string[];
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 }
@@ -29,6 +30,10 @@ Todo.init(
     completed: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
+    },
+    images: {
+      type: DataTypes.ARRAY(DataTypes.STRING),
+      defaultValue: [],
     },
   },
   {

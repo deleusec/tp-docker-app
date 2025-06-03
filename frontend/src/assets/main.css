@@ -1,74 +1,75 @@
 @import './base.css';
+@import './variables.css';
 
 #app {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   min-height: 100vh;
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-  padding: 20px;
+  background: linear-gradient(135deg, var(--color-background-light) 0%, #c3cfe2 100%);
+  padding: var(--spacing-2xl);
 }
 
 .container {
   max-width: 800px;
   margin: 0 auto;
-  padding: 20px;
+  padding: var(--spacing-2xl);
 }
 
 h1 {
   text-align: center;
-  color: #2c3e50;
+  color: var(--color-text-primary);
   font-size: 2.5em;
-  margin-bottom: 30px;
+  margin-bottom: var(--spacing-2xl);
   text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
 }
 
 .add-todo {
   display: flex;
-  gap: 10px;
-  margin-bottom: 30px;
-  background: white;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-2xl);
+  background: var(--color-background);
+  padding: var(--spacing-2xl);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
 }
 
 .todo-input {
   flex: 1;
-  padding: 12px;
-  font-size: 16px;
-  border: 2px solid #e0e0e0;
-  border-radius: 8px;
-  transition: border-color 0.3s ease;
+  padding: var(--spacing-lg);
+  font-size: var(--font-size-sm);
+  border: 2px solid var(--color-border-light);
+  border-radius: var(--radius-md);
+  transition: border-color var(--transition-fast);
 }
 
 .todo-input:focus {
   outline: none;
-  border-color: #42b983;
+  border-color: var(--color-primary);
 }
 
 .add-button {
-  padding: 12px 24px;
-  background-color: #42b983;
-  color: white;
+  padding: var(--spacing-lg) var(--spacing-2xl);
+  background-color: var(--color-primary);
+  color: var(--color-background);
   border: none;
-  border-radius: 8px;
+  border-radius: var(--radius-md);
   cursor: pointer;
   font-weight: bold;
   display: flex;
   align-items: center;
-  gap: 8px;
-  transition: transform 0.2s ease;
+  gap: var(--spacing-md);
+  transition: transform var(--transition-fast);
 }
 
 .add-button:hover {
   transform: translateY(-2px);
-  background-color: #3aa876;
+  background-color: var(--color-primary-hover);
 }
 
 .todos {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 20px;
-  padding: 20px 0;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--spacing-2xl);
+  padding: var(--spacing-2xl) 0;
 }
 
 .todo-card {
@@ -100,15 +101,6 @@ h1 {
   flex-direction: column;
   gap: 15px;
   flex: 1;
-}
-
-.todo-checkbox {
-  width: 20px;
-  height: 20px;
-  cursor: pointer;
-  position: absolute;
-  top: 15px;
-  right: 15px;
 }
 
 .todo-title {
@@ -143,14 +135,14 @@ h1 {
 
 .stats {
   text-align: center;
-  margin-top: 20px;
-  color: #666;
-  font-size: 14px;
+  margin-top: var(--spacing-2xl);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-xs);
 }
 
 @media (max-width: 600px) {
   .container {
-    padding: 10px;
+    padding: var(--spacing-lg);
   }
 
   .add-todo {
